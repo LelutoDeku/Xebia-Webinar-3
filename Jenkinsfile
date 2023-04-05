@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('GIT Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/LelutoDeku/Xebia-Webinar-3.gitt'
+                git branch: 'main', url: 'https://github.com/LelutoDeku/Xebia-Webinar-3.git'
             }
 
         }
