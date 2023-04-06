@@ -29,18 +29,43 @@ pipeline {
         stage('STATIC CODE ANALYSIS') {
             steps {
                 script {
-                    withSonarQubeEnv(credentialsId: 'sonarqubetoken') {
+                    withSonarQubeEnv(credentialsId: 'sonarqube1') {
                         sh 'mvn clean package sonar:sonar'
                     }
                 }
             }
         }
 
-        stage('QUALITY GATE STATUS') {
-            steps {
-                script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'sonarqubetoken'
-                }
+        // stage('QUALITY GATE STATUS') {
+        //     steps {
+        //         script {
+        //             waitForQualityGate abortPipeline: false, credentialsId: 'sonarqubetoken'
+        //         }
+        //     }
+        // }
+
+        stage('Upload Artifacts to Nexus'){
+            
+            steps{
+
+                script{
+
+                    nexusArtifactUploader artifacts: 
+                    [
+                        [
+                            artifactId: 'springboot', 
+                            classifier: '', 
+                            file: 'target/UPES.jar', 
+                            type: 'jar'
+                        ]
+                    ], 
+                    credentialsId: 'hammad653', 
+                    groupId: 'com.example', 
+                    nexusUrl: '34.227.207.218:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: 'java ci pipeline', 
+                    version: '1.0.0'
             }
         }
 
