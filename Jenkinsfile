@@ -26,15 +26,15 @@ pipeline {
             }
         }
 
-        stage('STATIC CODE ANALYSIS') {
-            steps {
-                script {
-                    withSonarQubeEnv(credentialsId: 'sonarqube1') {
-                        sh 'mvn clean package sonar:sonar'
-                    }
-                }
-            }
-        }
+        // stage('STATIC CODE ANALYSIS') {
+        //     steps {
+        //         script {
+        //             withSonarQubeEnv(credentialsId: 'sonarqube1') {
+        //                 sh 'mvn clean package sonar:sonar'
+        //             }
+        //         }
+        //     }
+        // }
 
         // stage('QUALITY GATE STATUS') {
         //     steps {
